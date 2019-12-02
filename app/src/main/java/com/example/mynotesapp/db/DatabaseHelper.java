@@ -4,6 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static android.provider.BaseColumns._ID;
+import static com.example.mynotesapp.db.DatabaseContract.NoteColumns.DATE;
+import static com.example.mynotesapp.db.DatabaseContract.NoteColumns.DESCRIPTION;
+import static com.example.mynotesapp.db.DatabaseContract.NoteColumns.TABLE_NAME;
+import static com.example.mynotesapp.db.DatabaseContract.NoteColumns.TITLE;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static String DATABASE_NAME = "dbnoteapp";
     private static final int DATABASE_VERSION = 1;
@@ -12,11 +18,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL)",
-            DatabaseContract.TABLE_NAME,
-            DatabaseContract.NoteColumns._ID,
-            DatabaseContract.NoteColumns.TITLE,
-            DatabaseContract.NoteColumns.DESCRIPTION,
-            DatabaseContract.NoteColumns.DATE
+            TABLE_NAME,
+            _ID,
+            TITLE,
+            DESCRIPTION,
+            DATE
     );
 
     public DatabaseHelper(Context context) {
@@ -30,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 }
